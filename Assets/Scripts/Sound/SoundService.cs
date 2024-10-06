@@ -1,3 +1,4 @@
+using ServiceLocator.UI;
 using System;
 using UnityEngine;
 
@@ -9,6 +10,20 @@ namespace ServiceLocator.Sound
         [SerializeField] private AudioSource audioEffects;
         [SerializeField] private AudioSource backgroundMusic;
 
+        private static SoundService instance;
+        public static SoundService Instance { get { return instance; } }
+
+        private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Debug.LogError("Trying to create second instance of SoundService, remove the component");
+            }
+        }
         private void Start()
         {
             PlaybackgroundMusic(SoundType.BackgroundMusic, true);
