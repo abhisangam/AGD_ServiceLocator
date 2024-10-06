@@ -3,6 +3,7 @@ using UnityEngine;
 using ServiceLocator.Wave.Bloon;
 using ServiceLocator.Player.Projectile;
 using ServiceLocator.Sound;
+using UnityEngine.PlayerLoop;
 
 namespace ServiceLocator.Player
 {
@@ -15,6 +16,14 @@ namespace ServiceLocator.Player
         private List<BloonController> bloonsInRange;
         private float attackTimer;
 
+        public void Update() 
+        {
+            if(bloonsInRange.Count > 0)
+            {
+                RotateTowardsTarget(bloonsInRange[0]);
+                ShootAtTarget(bloonsInRange[0]);
+            }
+        }
         public MonkeyController(MonkeyScriptableObject monkeyScriptableObject, ProjectilePool projectilePool)
         {
             monkeyView = Object.Instantiate(monkeyScriptableObject.Prefab);
