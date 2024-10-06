@@ -7,10 +7,11 @@ using ServiceLocator.Events;
 using ServiceLocator.Wave;
 using ServiceLocator.Player;
 using ServiceLocator.Map;
+using ServiceLocator.Sound;
 
 namespace ServiceLocator.UI
 {
-    public class UIService : MonoBehaviour
+    public class UIService : GenericMonoSingleton<UIService>
     {
         [SerializeField] private EventService eventService;
 
@@ -38,21 +39,6 @@ namespace ServiceLocator.UI
         [SerializeField] private TextMeshProUGUI gameEndText;
         [SerializeField] private Button playAgainButton;
         [SerializeField] private Button quitButton;
-
-        private static UIService instance;
-        public static UIService Instance { get { return instance; } }
-
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Debug.LogError("Trying to create second instance of UIService, remove the component");
-            }
-        }
 
         private void Start()
         {

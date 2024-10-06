@@ -4,26 +4,12 @@ using UnityEngine;
 
 namespace ServiceLocator.Sound
 {
-    public class SoundService : MonoBehaviour
+    public class SoundService : GenericMonoSingleton<SoundService>
     {
         [SerializeField] private SoundScriptableObject soundScriptableObject;
         [SerializeField] private AudioSource audioEffects;
         [SerializeField] private AudioSource backgroundMusic;
 
-        private static SoundService instance;
-        public static SoundService Instance { get { return instance; } }
-
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Debug.LogError("Trying to create second instance of SoundService, remove the component");
-            }
-        }
         private void Start()
         {
             PlaybackgroundMusic(SoundType.BackgroundMusic, true);
